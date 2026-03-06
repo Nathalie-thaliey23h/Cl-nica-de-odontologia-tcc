@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico - Clínica Odontológica</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/area_paciente.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="paciente-container">
+        <!-- Header -->
+        <div class="paciente-header">
+            <div class="header-info">
+                <div class="user-avatar" id="userAvatar">👤</div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Carregando...</div>
+                    <div class="user-email" id="userEmail">Carregando...</div>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Sair da conta
+            </button>
+        </div>
+
+        <!-- Título -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0;">📋 Histórico de Agendamentos</h2>
+            <button class="btn-primary" onclick="window.location.href='area-paciente.html'" style="width: auto; padding: 10px 20px;">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+        </div>
+
+        <!-- Tabs de filtro -->
+        <div class="tabs">
+            <button class="tab active" onclick="filtrarHistorico('todos')" id="tabTodos">Todos</button>
+            <button class="tab" onclick="filtrarHistorico('agendado')" id="tabAgendado">Agendados</button>
+            <button class="tab" onclick="filtrarHistorico('concluido')" id="tabConcluido">Concluídos</button>
+            <button class="tab" onclick="filtrarHistorico('cancelado')" id="tabCancelado">Cancelados</button>
+        </div>
+
+        <!-- Lista de histórico -->
+        <div class="agendamentos-section" style="margin-top: 0;">
+            <div id="historicoContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando histórico...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Configurar Firebase
+        firebase.initializeApp({
+            apiKey: "AIzaSyX6GkKmgYIgakFs8bq3y__9cV0aTHk",
+            authDomain: "clínica-odontologica-c166f.firebaseapp.com",
+            projectId: "clínica-odontologica-c166f",
+            storageBucket: "clínica-odontologica-c166f.appspot.com",
+            messagingSenderId: "310420107761",
+            appId: "1:310420107761:web:bc5c4685ff47feeb1450"
+        });
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        let filtroAtual = 'todos';
+        let todosAgendamentos = [];
+
+        // Verificar autenticação
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            document.getElementById('userName').textContent = user.displayName || 'Paciente';
+            document.getElementById('userEmail').textContent = user.email;
+            
+            const initial = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
+            document.getElementById('userAvatar').textContent = initial;
+            
+            carregarHistorico(user.uid);
+        });
+
+        // Carregar histórico
+        function carregarHistorico(usuarioId) {
+            db.collection('agendamentos')
+                .where('usuarioId', '==', usuarioId)
+                .orderBy('data', 'desc')
+                .get()
+                .then((querySnapshot) => {
+                    todosAgendamentos = [];
+                    querySnapshot.forEach((doc) => {
+                        todosAgendamentos.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    
+                    aplicarFiltro();
+                })
+                .catch((error) => {
+                    console.error('Erro ao carregar histórico:', error);
+                    document.getElementById('historicoContainer').innerHTML = `
+                        <div class="alert alert-error">
+                            Erro ao carregar histórico. Tente novamente.
+                        </div>
+                    `;
+                });
+        }
+
+        // Filtrar histórico
+        window.filtrarHistorico = function(filtro) {
+            filtroAtual = filtro;
+            
+            // Atualizar tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`tab${filtro.charAt(0).toUpperCase() + filtro.slice(1)}`).classList.add('active');
+            
+            aplicarFiltro();
+        };
+
+        // Aplicar filtro
+        function aplicarFiltro() {
+            const container = document.getElementById('historicoContainer');
+            container.innerHTML = '';
+            
+            let agendamentosFiltrados = todosAgendamentos;
+            
+            if (filtroAtual !== 'todos') {
+                agendamentosFiltrados = todosAgendamentos.filter(a => a.status === filtroAtual);
+            }
+            
+            if (agendamentosFiltrados.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>Nenhum agendamento encontrado.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            agendamentosFiltrados.forEach(agendamento => {
+                container.appendChild(criarCardHistorico(agendamento));
+            });
+        }
+
+        // Criar card de histórico
+        function criarCardHistorico(agendamento) {
+            const div = document.createElement('div');
+            div.className = 'agendamento-card';
+            
+            // Determinar status
+            let statusClass = 'status-agendado';
+            let statusText = 'Agendado';
+            
+            if (agendamento.status === 'concluido') {
+                statusClass = 'status-concluido';
+                statusText = 'Concluído';
+            } else if (agendamento.status === 'cancelado') {
+                statusClass = 'status-cancelado';
+                statusText = 'Cancelado';
+            }
+            
+            // Formatar data
+            const dataObj = new Date(agendamento.data + 'T12:00:00');
+            const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+            
+            div.innerHTML = `
+                <div class="agendamento-header">
+                    <span class="agendamento-servico">${agendamento.servico || 'Procedimento'}</span>
+                    <span class="agendamento-status ${statusClass}">${statusText}</span>
+                </div>
+                <div class="agendamento-body">
+                    <div class="agendamento-info">
+                        <i class="fas fa-calendar"></i>
+                        <span>${dataFormatada}</span>
+                    </div>
+                    <div class="agendamento-info">
+                        <i class="fas fa-clock"></i>
+                        <span>${agendamento.hora || 'Horário não informado'}</span>
+                    </div>
+                    <div class="agendamento-info">
+                        <i class="fas fa-user-md"></i>
+                        <span>${agendamento.profissional || 'Profissional'}</span>
+                    </div>
+                </div>
+                <div class="agendamento-actions">
+                    <button class="btn-action btn-view" onclick="verDetalhes('${agendamento.id}')">
+                        <i class="fas fa-eye"></i> Ver detalhes
+                    </button>
+                    ${agendamento.status === 'agendado' ? `
+                        <button class="btn-action btn-edit" onclick="editarAgendamento('${agendamento.id}')">
+                            <i class="fas fa-edit"></i> Remarcar
+                        </button>
+                        <button class="btn-action btn-cancel" onclick="cancelarAgendamento('${agendamento.id}')">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Funções de ação
+        window.editarAgendamento = function(id) {
+            window.location.href = `agendamento.html?id=${id}`;
+        };
+
+        window.cancelarAgendamento = function(id) {
+            if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
+                db.collection('agendamentos').doc(id).update({
+                    status: 'cancelado'
+                })
+                .then(() => {
+                    alert('Agendamento cancelado com sucesso!');
+                    const user = auth.currentUser;
+                    if (user) carregarHistorico(user.uid);
+                })
+                .catch((error) => {
+                    alert('Erro ao cancelar: ' + error.message);
+                });
+            }
+        };
+
+        window.verDetalhes = function(id) {
+            alert('Funcionalidade de detalhes será implementada em breve!');
+        };
+
+        // Logout
+        window.logout = function() {
+            auth.signOut()
+                .then(() => {
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    alert('Erro ao sair: ' + error.message);
+                });
+        };
+    </script>
+</body>
+</html>

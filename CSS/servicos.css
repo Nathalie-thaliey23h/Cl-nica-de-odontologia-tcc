@@ -1,0 +1,141 @@
+/* css/servicos.css */
+.servicos-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.titulo-pagina {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 50px;
+    color: #0d1b2a;
+    position: relative;
+}
+
+.titulo-pagina::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #00b4d8, #ff69b4);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.servicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.servico-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.servico-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,180,216,0.2);
+}
+
+.servico-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #00b4d8, #ff69b4);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.servico-card:hover::before {
+    transform: scaleX(1);
+}
+
+.servico-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00b4d8, #0096c7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.servico-icon i {
+    font-size: 40px;
+    color: white;
+}
+
+.servico-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #0d1b2a;
+}
+
+.servico-card p {
+    color: #4a5568;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.servico-preco {
+    font-size: 32px;
+    font-weight: 700;
+    color: #00b4d8;
+    margin: 15px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.btn-agendar-verde {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-agendar-verde:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(40,167,69,0.5);
+    background: linear-gradient(135deg, #218838, #1e7e34);
+}
+
+.btn-agendar-verde i {
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .servicos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .titulo-pagina {
+        font-size: 32px;
+    }
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sorriso Perfeito</title>
+    
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-container">
+    
+    <!-- Header com navegação -->
+    <div class="auth-header">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            <span>Voltar</span>
+        </a>
+        <div class="auth-logo-small">
+            <i class="fas fa-tooth"></i>
+            <span>Sorriso Perfeito</span>
+        </div>
+    </div>
+
+    <!-- Card principal -->
+    <div class="auth-card">
+        
+        <div class="auth-card-header">
+            <div class="auth-icon-wrapper">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>Criar conta</h1>
+            <p>Preencha seus dados para começar</p>
+        </div>
+
+        <!-- Mensagem de feedback -->
+        <div id="mensagem" class="auth-message" style="display: none;"></div>
+
+        <!-- Formulário -->
+        <form class="auth-form" id="formCadastro">
+            <div class="form-group">
+                <label>Nome completo</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required autocomplete="name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required autocomplete="email">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="telefone" placeholder="(11) 99999-9999" required autocomplete="tel">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nascimento</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar"></i>
+                        <input type="date" id="nascimento" autocomplete="bday">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Senha</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="senha" placeholder="Crie uma senha" required autocomplete="new-password">
+                    <i class="fas fa-eye toggle-password"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirmar senha</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmarSenha" placeholder="Digite novamente" required autocomplete="new-password">
+                    <i class="fas fa-eye toggle-password"></i>
+                </div>
+            </div>
+
+            <div class="form-checkbox">
+                <input type="checkbox" id="termos" required>
+                <label for="termos">Aceito os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></label>
+            </div>
+
+            <button type="submit" class="btn-auth" id="btnCadastro">
+                <span>Criar minha conta</span>
+            </button>
+        </form>
+
+        <!-- Divisor -->
+        <div class="auth-divider">
+            <span>ou cadastre-se com</span>
+        </div>
+
+        <!-- Botões sociais (apenas visual) -->
+        <div class="social-auth">
+            <button class="btn-social google" type="button">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+            </button>
+            <button class="btn-social facebook" type="button">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+            </button>
+        </div>
+
+        <!-- Link para login -->
+        <div class="auth-links">
+            <p>Já tem uma conta? <a href="login.html"><strong>Fazer login</strong></a></p>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="JavaScript/firebase-config.js"></script>
+<script type="module" src="JavaScript/auth.js"></script>
+
+<!-- Script para mostrar/ocultar senha -->
+<script>
+document.querySelectorAll('.toggle-password').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
+});
+</script>
+
+</body>
+</html>
