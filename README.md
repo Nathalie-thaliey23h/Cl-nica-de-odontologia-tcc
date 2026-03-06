@@ -1,108 +1,123 @@
-Sistema de Agendamento Online
-📌 Sobre o Projeto
+<h1 align="center">Sistema de Agendamento Online</h1>
 
-Este projeto consiste no desenvolvimento de um site de agendamento online, criado com o objetivo de facilitar a organização de atendimentos e otimizar o tempo dos usuários.
+<p align="center">
+Projeto desenvolvido no curso Técnico em Desenvolvimento de Sistemas – PRONATEC
+</p>
 
-A plataforma permite que usuários realizem cadastro, login e agendamentos de forma rápida e simples, evitando filas e melhorando a organização dos serviços.
+<hr>
 
-O sistema foi desenvolvido como projeto final do Curso Técnico em Desenvolvimento de Sistemas do PRONATEC, aplicando na prática conhecimentos de desenvolvimento web, banco de dados e experiência do usuário.
+<h2>📌 Sobre o Projeto</h2>
 
-🎯 Objetivo
+<p>
+Este projeto consiste no desenvolvimento de um <strong>site de agendamento online</strong>, criado com o objetivo de facilitar a organização de atendimentos e otimizar o tempo dos usuários.
+</p>
 
-O principal objetivo do projeto é desenvolver um sistema digital de agendamento que torne o processo de marcação de horários mais ágil, organizado e acessível.
+<p>
+A plataforma permite que usuários realizem <strong>cadastro, login e agendamentos de forma rápida e simples</strong>, evitando filas e melhorando a organização dos serviços.
+</p>
 
-Além disso, o projeto busca:
+<p>
+O sistema foi desenvolvido como <strong>projeto final do Curso Técnico em Desenvolvimento de Sistemas do PRONATEC</strong>, aplicando conhecimentos de desenvolvimento web, banco de dados e experiência do usuário.
+</p>
 
-Aplicar conceitos de programação web
+<hr>
 
-Desenvolver interfaces intuitivas
+<h2>🎯 Objetivo</h2>
 
-Utilizar banco de dados em nuvem
+<p>
+O principal objetivo do projeto é <strong>desenvolver um sistema digital de agendamento que torne o processo de marcação de horários mais ágil, organizado e acessível</strong>.
+</p>
 
-Garantir organização e segurança das informações
+<ul>
+<li>Aplicar conceitos de <strong>programação web</strong></li>
+<li>Desenvolver <strong>interfaces intuitivas</strong></li>
+<li>Utilizar <strong>banco de dados em nuvem</strong></li>
+<li>Garantir <strong>organização e segurança das informações</strong></li>
+</ul>
 
-⚙️ Tecnologias Utilizadas
+<hr>
 
-O sistema foi desenvolvido utilizando tecnologias modernas de desenvolvimento web:
+<h2>⚙️ Tecnologias Utilizadas</h2>
 
-HTML5 → estrutura das páginas
+<ul>
+<li>HTML5 – Estrutura das páginas</li>
+<li>CSS3 – Estilização e layout</li>
+<li>JavaScript – Funcionalidades e interatividade</li>
+<li>Firebase – Autenticação e banco de dados</li>
+</ul>
 
-CSS3 → estilização e layout da interface
+<hr>
 
-JavaScript → interatividade e funcionalidades do sistema
+<h2>🧩 Funcionalidades do Sistema</h2>
 
-Firebase → autenticação e banco de dados em nuvem
+<h3>👤 Cadastro de Usuários</h3>
+<p>Permite que novos usuários criem uma conta para acessar o sistema.</p>
 
-🧩 Funcionalidades do Sistema
+<h3>🔐 Login e Autenticação</h3>
+<p>Os usuários podem acessar suas contas de forma segura.</p>
 
-O site possui as seguintes funcionalidades:
+<h3>📅 Agendamento de Horários</h3>
+<p>Permite selecionar datas e horários disponíveis para realizar agendamentos.</p>
 
-👤 Cadastro de Usuários
+<h3>📂 Armazenamento de Dados</h3>
+<p>As informações são armazenadas no Firebase, garantindo organização e segurança.</p>
 
-Permite que novos usuários criem uma conta para acessar o sistema.
+<h3>📋 Visualização de Agendamentos</h3>
+<p>Os usuários podem visualizar seus agendamentos realizados.</p>
 
-🔐 Login e Autenticação
+<hr>
 
-Os usuários podem acessar suas contas com segurança por meio de autenticação.
+<h2>🎨 Interface e Usabilidade</h2>
 
-📅 Agendamento de Horários
+<p>
+A interface foi desenvolvida com foco em <strong>UX (User Experience)</strong> e 
+<strong>UI (User Interface)</strong>, priorizando:
+</p>
 
-O sistema permite selecionar datas e horários disponíveis para realizar agendamentos.
+<ul>
+<li>Navegação simples</li>
+<li>Layout organizado</li>
+<li>Clareza das informações</li>
+<li>Facilidade de uso</li>
+</ul>
 
-📂 Armazenamento de Dados
+<p>
+O objetivo foi garantir que qualquer usuário consiga realizar um agendamento de forma 
+<strong>rápida e intuitiva</strong>.
+</p>
 
-Todas as informações são armazenadas no Firebase, garantindo organização e segurança dos dados.
+<hr>
 
-📋 Visualização de Agendamentos
+<h2>🧪 Testes do Sistema</h2>
 
-Os usuários podem visualizar os agendamentos realizados.
+<p>Durante o desenvolvimento foram realizados testes para validar o funcionamento do sistema:</p>
 
-🎨 Interface e Usabilidade
+<ul>
+<li>Cadastro de usuários</li>
+<li>Login no sistema</li>
+<li>Armazenamento no banco de dados</li>
+<li>Recuperação de informações</li>
+<li>Fluxo de navegação</li>
+</ul>
 
-A interface foi desenvolvida com foco em UX (User Experience) e UI (User Interface), priorizando:
+<hr>
 
-Navegação simples
+<h2>🚀 Melhorias Futuras</h2>
 
-Layout organizado
+<ul>
+<li>Notificações automáticas de agendamento</li>
+<li>Confirmação de horário por e-mail</li>
+<li>Painel administrativo</li>
+<li>Cancelamento e edição de agendamentos</li>
+<li>Integração com outros sistemas</li>
+</ul>
 
-Clareza das informações
+<hr>
 
-Facilidade de uso
+<h2>👩‍💻 Autora</h2>
 
-O objetivo foi garantir que qualquer usuário consiga realizar um agendamento de forma rápida e intuitiva.
-
-🧪 Testes do Sistema
-
-Durante o desenvolvimento foram realizados testes para validar o funcionamento do sistema, incluindo:
-
-Cadastro de usuários
-
-Login no sistema
-
-Armazenamento no banco de dados
-
-Recuperação de informações
-
-Fluxo de navegação
-
-Os testes garantiram que as funcionalidades operassem corretamente e que o sistema apresentasse boa experiência de uso.
-
-🚀 Possíveis Melhorias Futuras
-
-O sistema pode ser expandido com novas funcionalidades, como:
-
-Notificações automáticas de agendamento
-
-Confirmação de horário por e-mail
-
-Painel administrativo
-
-Cancelamento e edição de agendamentos
-
-Integração com outros sistemas
-
-👩‍💻 Autora
-
-Nathalie Sousa da Silva
-
-Projeto desenvolvido no Curso Técnico em Desenvolvimento de Sistemas – PRONATEC (Programa Nacional de Acesso ao Ensino Técnico e Emprego).
+<p>
+<strong>Nathalie Sousa da Silva</strong><br>
+Curso Técnico em Desenvolvimento de Sistemas<br>
+Programa Nacional de Acesso ao Ensino Técnico e Emprego – PRONATEC
+</p>
